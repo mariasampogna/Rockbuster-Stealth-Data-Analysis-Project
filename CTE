@@ -1,0 +1,21 @@
+Here is a SQL query with a common table expressions
+
+WITH film_category_cte (film_id, title, category_id, category) AS 
+  (SELECT A.film_id, 
+          A.title, 
+           B.category_id, 
+           C.name AS category
+  FROM film A
+  INNER JOIN film_category B ON A.film_id = B.film_id
+  INNER JOIN category C ON B.category_id = C.category_ID)
+SELECT B.film_id, 
+       B.title, 
+       A.category, 
+       sum(E.amount) AS total_revenue
+FROM film_category_cte A
+INNER JOIN film B on A.film_id = B.film_id
+INNER JOIN inventory C on B.film_id = C.film_id
+INNER JOIN rental D on C.inventory_id = D.inventory_id
+INNER JOIN payment E on D.rental_id = E.rental_ID
+GROUP BY B.film_id, B.title, A.category
+ORDER BY total_revenue DESC

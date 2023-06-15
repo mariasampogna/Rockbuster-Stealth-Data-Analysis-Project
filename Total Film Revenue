@@ -1,4 +1,4 @@
-Here is a SQL query with a common table expressions
+This query uses a common table expression and inner joins to pull the total revenue of each film in the database.
 
 WITH film_category_cte (film_id, title, category_id, category) AS 
   (SELECT A.film_id, 

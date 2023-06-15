@@ -7,4 +7,5 @@ For this project, I took on the role of a data analyst for Rockbuster Stealth's 
 Before you I began my analysis and answered more complex business questions, I acquired a good understanding of the various data points. I then compiled the results of my analysis into an easily digestible format, which will be presented to the Rockbuster Stealth Management Board.
 
 Presentation to the Rockbuster Stealth Management Board: [3.10_ Presenting SQL Results.pdf](https://github.com/mas4ns/SQLqueries/files/11759780/3.10_.Presenting.SQL.Results.pdf)
+
 Data Set: [dvdrental.zip](https://github.com/mas4ns/Rockbuster-Stealth-Data-Analysis-Project/files/11759829/dvdrental.zip)

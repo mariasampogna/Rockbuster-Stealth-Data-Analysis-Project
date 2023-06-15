@@ -1,0 +1,41 @@
+This query uses multiple subqueries to determine how many of Rockbuster's top 5 customers are based in each country.
+
+SELECT all_customers.country, 
+       all_customers.all_customer_count, 
+       COUNT(DISTINCT top_customers.customer_id) AS top_customer_count
+FROM (SELECT D.country, 
+        D.country_id, 
+        COUNT(DISTINCT A.customer_id) AS all_customer_count
+      FROM customer A
+      INNER JOIN address B on A.address_id = B.address_id
+      INNER JOIN city C on B.city_id = C.city_id
+      INNER JOIN country D on C.country_id = D.country_id
+      GROUP BY D.country, D.country_id
+      ) AS all_customers
+INNER JOIN city B ON all_customers.country_id = B.country_id
+INNER JOIN address C ON B.city_id = C.city_id
+INNER JOIN customer D ON C.address_id = D.address_id
+INNER JOIN (SELECT A.customer_id, 
+                   B.first_name, 
+                   B.last_name, 
+                   E.country, 
+                   D.city, 
+                   sum(A.amount) AS total_amount_paid
+            FROM payment A
+            INNER JOIN customer B on A.customer_id = B.customer_id
+            INNER JOIN address C on B.address_id = C.address_id
+            INNER JOIN city D on C.city_id = D.city_id
+            INNER JOIN country E on D.country_id = E.country_id
+            WHERE D.city 
+            IN ('Aurora', 'Atlixco', 'Xintai', 'Adoni', 'Dhule (Dhulia)', 'Kurashiki', 'Pingxiang', 'Sivas', 'Celaya', 'So Leopoldo')
+            GROUP BY A.customer_id, 
+                     B.first_name, 
+                     B.last_name, 
+                     E.country, 
+                     D.city
+            ORDER BY total_amount_paid DESC
+            LIMIT 5
+            ) AS top_customers 
+ON D.customer_id = top_customers.customer_id
+GROUP BY all_customers.country, 
+         all_customers.all_customer_count

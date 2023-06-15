@@ -1,0 +1,8 @@
+This query displayes the average rental duration (in days) for each film in the database.
+
+SELECT film_id, 
+       title, 
+       AVG(rental_duration) AS average_rental_duration
+FROM film
+GROUP BY film_id, title
+ORDER BY average_rental_duration

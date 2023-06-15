@@ -17,5 +17,7 @@ INNER JOIN film B on A.film_id = B.film_id
 INNER JOIN inventory C on B.film_id = C.film_id
 INNER JOIN rental D on C.inventory_id = D.inventory_id
 INNER JOIN payment E on D.rental_id = E.rental_ID
-GROUP BY B.film_id, B.title, A.category
+GROUP BY B.film_id, 
+         B.title, 
+         A.category
 ORDER BY total_revenue DESC
